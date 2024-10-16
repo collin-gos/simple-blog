@@ -1,3 +1,5 @@
+<%= link_to "Back", root_path %>
+
 <h1><%= @article.title %></h1>
 
 <p><%= @article.body %></p>
@@ -12,4 +14,14 @@
       turbo_confirm: "Are you sure?"
     }
   %>
+</div>
+
+<div>
+  <h4>Comments</h4>
+  <div>
+    <%= render partial: 'comment', collection: @article.comments, as: :comment %>
+  </div>
+
+  <%= render "comments/form", article: @article %>
+
 </div>
