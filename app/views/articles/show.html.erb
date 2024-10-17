@@ -1,0 +1,29 @@
+<button class="btn btn-outline">
+  <i class="bi bi-caret-left-fill"></i>
+  Back
+</button>
+<h1 class="text-center"><%= @article.title%></h1>
+<div class="mt-2 p-2"><%= @article.body %></div>
+
+<div>
+  <%= link_to "Edit", edit_article_path(@article) %>
+  <%=
+    link_to "Destroy",
+    article_path(@article),
+    data: {
+      turbo_method: :delete,
+      turbo_confirm: "Are you sure?"
+    }
+  %>
+</div>
+
+<div class="container mt-2 p-2">
+  <h4>Comments</h4>
+  <div>
+    <%= render partial: 'comment', collection: @comments, as: :comment %>
+  </div>
+  <div class="row rounded border p-2">
+    <h4>Leave your comment here:</h4>
+    <%= render "comments/form", article: @article %>
+  </div>
+</div>

@@ -27,13 +27,28 @@
 #       "yes": yup
 #       enabled: "ON"
 
-en:
+vi:
   application:
     nav:
-      articles: "Article"
-      features: "Feature"
-      pricing: "Pricing"
-      login: "Login"
+      articles: "Bai dang"
+      features: "Tuyen tap"
+      pricing: "Gia"
+      login: "Dang nhap"
   articles:
     form:
-      create_article: "Create article"
+      create_article: "Tao bai dang"
+  activerecord:
+    attributes:
+      article:
+        title: "Tieu de"
+        body: "Noi dung chinh"
+        visible: "Quyen truy cap"
+    errors:
+      models:
+        article:
+          attributes:
+            title:
+              blank: "khong duoc rong."
+            body:
+              blank: "khong duoc rong."
+              too_short: "phai co it nhat %{count} ki tu."
