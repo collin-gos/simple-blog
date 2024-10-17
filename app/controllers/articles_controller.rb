@@ -1,10 +1,13 @@
 class ArticlesController < ApplicationController
+  before_action :find_article, only: [ :show, :edit, :update, :destroy ]
+
   def index
     @articles = Article.all
   end
 
   def show
-    @article = Article.find(params[:id])
+    # @article = Article.find(params[:id])
+    @comments = @article.comments
   end
 
   def new
@@ -26,7 +29,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find(params[:id])
+    # @article = Article.find(params[:id])
 
     if @article.update(article_params)
       redirect_to @article
@@ -36,7 +39,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    # @article = Article.find(params[:id])
     @article.destroy
 
     redirect_to root_path, status: :see_other
@@ -45,5 +48,9 @@ class ArticlesController < ApplicationController
   private
     def article_params
       params.require(:article).permit(:title, :body, :visible)
+    end
+
+    def find_article
+      @article = Article.find(params[:id])
     end
 end
