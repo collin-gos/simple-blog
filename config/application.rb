@@ -18,6 +18,10 @@ module Blog
     I18n.load_path += Dir[Rails.root.join("config", "locales", "*.{rb,yml}")]
     I18n.available_locales =[ :en, :vi ]
     I18n.default_locale = :en
+
+    if Rails.env.development? || Rails.env.test?
+      Dotenv::Rails.load
+    end
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
