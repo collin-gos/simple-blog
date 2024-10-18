@@ -60,3 +60,5 @@ gem "faker", "~> 3.4"
 gem "pg", "~> 1.5"
 gem "dotenv-rails", group: [ :development, :test ]
 gem "seedbank"
+
+gem "devise", "~> 4.9"
