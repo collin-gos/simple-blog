@@ -1,14 +1,26 @@
 class ArticlesController < ApplicationController
-  before_action :find_article, only: [ :show, :edit, :update, :destroy ]
+  before_action :find_article, only: [ :show, :edit, :update, :destroy, :approve ]
   before_action :authenticate_user!, only: [ :new, :create, :my, :update ]
 
   def index
-    @articles = Article.where(["visible = ?", "public"])
+    @articles = Article.where(visible: "public", status: 1)
   end
 
   def my
     @articles = Article.where(["user_id = ?", current_user.id])
     render :index
+  end
+
+  def pending_approve
+    @articles = Article.where(visible: 'public', status: 0)
+  end
+
+  def approve
+    authorize @article, :can_approve?
+    # Reject: -1, pending: 0, accept: 1
+    @article.update(status: params[:status])
+
+    redirect_to :pending_approve
   end
 
   def show

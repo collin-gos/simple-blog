@@ -48,6 +48,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="<%= new_article_path %>"><%= t(:create, scope: [:application, :nav]) %></a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= pending_approve_path %>"><%= t(:approve_article, scope: [:application, :nav]) %></a>
+              </li>
               <% if user_signed_in? %>
                 <li class="nav-item">
                   <%= link_to "Profile", edit_user_registration_path, class: "nav-link" %>

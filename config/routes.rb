@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "articles#index"
   get "myarticles", to: "articles#my"
+  get 'pending_approve', to: "articles#pending_approve"
   resources :articles do
+    member do
+      post 'approve', to: "articles#approve"
+    end
     resources :comments
   end
 end

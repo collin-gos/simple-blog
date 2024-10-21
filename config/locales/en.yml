@@ -32,6 +32,7 @@ en:
     nav:
       articles: "Article"
       my_articles: "My Articles"
+      approve_articles: "Approve"
       create: "Create"
       login: "Login"
   articles:

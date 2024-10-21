@@ -62,3 +62,4 @@ gem "dotenv-rails", group: [ :development, :test ]
 gem "seedbank"
 
 gem "devise", "~> 4.9"
+gem "pundit"
