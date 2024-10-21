@@ -31,8 +31,8 @@ en:
   application:
     nav:
       articles: "Article"
-      features: "Feature"
-      pricing: "Pricing"
+      my_articles: "My Articles"
+      create: "Create"
       login: "Login"
   articles:
     form:

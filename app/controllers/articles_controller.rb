@@ -1,14 +1,19 @@
 class ArticlesController < ApplicationController
   before_action :find_article, only: [ :show, :edit, :update, :destroy ]
-  before_action :authenticate_user!, only: [ :new, :create ]
+  before_action :authenticate_user!, only: [ :new, :create, :my, :update ]
 
   def index
-    @articles = Article.all
+    @articles = Article.where(["visible = ?", "public"])
+  end
+
+  def my
+    @articles = Article.where(["user_id = ?", current_user.id])
+    render :index
   end
 
   def show
     # @article = Article.find(params[:id])
-    @comments = @article.comments
+    @comments = Comment.where(article_id: @article.id, visible: 'public')
   end
 
   def new
@@ -16,7 +21,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.create(article_params)
+    @article = Article.create(article_params.merge(user_id: current_user.id))
 
     if @article.save
       redirect_to @article
@@ -32,7 +37,7 @@ class ArticlesController < ApplicationController
   def update
     # @article = Article.find(params[:id])
 
-    if @article.update(article_params)
+    if @article.update(article_params.merge(user_id: current_user.id))
       redirect_to @article
     else
       render :edit, status: :unprocessable_entity
