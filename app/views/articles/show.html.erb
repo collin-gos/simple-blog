@@ -1,7 +1,7 @@
-<button class="btn btn-outline">
+<%# <button class="btn btn-outline">
   <i class="bi bi-caret-left-fill"></i>
   Back
-</button>
+</button> %>
 <h1 class="text-center"><%= @article.title%></h1>
 <div class="mt-2 p-2"><%= @article.body %></div>
 
@@ -17,7 +17,7 @@
   %>
 </div>
 
-<div class="container mt-2 p-2">
+<div class="container mt-2 p-2 mb-2">
   <h4>Comments</h4>
   <div>
     <%= render partial: 'comment', collection: @comments, as: :comment %>

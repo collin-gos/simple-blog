@@ -1,7 +1,10 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, on: [:create]
+
   def create
     @article = Article.find(params[:article_id])
-    Comment.create(comment_params.merge(@article.id))
+    # Ask
+    Comment.create(comment_params.merge(article_id: @article.id, user_id: current_user.id)) # Create! vs Create
     redirect_to article_path(@article)
   end
 

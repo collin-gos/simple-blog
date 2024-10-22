@@ -20,6 +20,8 @@
   </head>
 
   <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <div class="container">
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -38,17 +40,29 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><%= t(:articles, scope: [:application, :nav]) %></a>
+                <a class="nav-link active" aria-current="page" href="/"><%= t(:articles, scope: [:application, :nav]) %></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"><%= t(:features, scope: [:application, :nav]) %></a>
+                <a class="nav-link" href="/myarticles"><%= t(:my_articles, scope: [:application, :nav]) %></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"><%= t(:pricing, scope: [:application, :nav]) %></a>
+                <a class="nav-link" href="<%= new_article_path %>"><%= t(:create, scope: [:application, :nav]) %></a>
               </li>
-              <li class="nav-item flex-end">
-                <button class="btn btn-outline-secondary"><%= t(:login, scope: [:application, :nav]) %></button>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= pending_approve_path %>"><%= t(:approve_article, scope: [:application, :nav]) %></a>
               </li>
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to "Profile", edit_user_registration_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+                </li>
+                <% else %>
+                <li class="nav-item flex-end">
+                  <%= link_to t(:login, scope: [:application, :nav]), new_user_session_path, class: "nav-link" %>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>
