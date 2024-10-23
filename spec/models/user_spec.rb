@@ -31,14 +31,19 @@ RSpec.describe User, type: :model do
   end
 
   describe "Devise methods" do
+
+    before(:example) do
+      @user = create(:user)
+    end
+
     it "authenticated with a valid password" do
-      user = User.create!(email: "sample@mail.com", password: "password")
-      expect(user.valid_password?("password")).to be_truthy
+      # user = User.create!(email: "sample@mail.com", password: "password")
+      expect(@user.valid_password?("password123")).to be_truthy
     end
 
     it "does not authenticate with an invalid password" do
-      user = User.create!(email: "user@sample.com", password: "password123")
-      expect(user.valid_password?("password")).to be_falsey
+      # user = User.create!(email: "user@sample.com", password: "password123")
+      expect(@user.valid_password?("password")).to be_falsey
     end
   end
 end
