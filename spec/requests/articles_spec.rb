@@ -42,11 +42,19 @@ RSpec.describe 'Article endpoints', type: :request do
   end
 
   describe 'POST /articles' do
+    context 'without authentication' do
+      before do
+        delete destroy_user_session_path
+      end
+      it 'response 401 code' do
+        post '/articles', params: { article: { title: 'New article', body: "New article's conent", visible: 'public' }}
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
     context 'with valid parameters' do
       before do
         post user_session_path, params: { user: { email: @user.email, password: 'password123' } }
       end
-
       it 'creates a new article' do
         expect {
           post '/articles', params: { article: {title: "New article", body: "New article's conent", visible: "public" }}
@@ -54,6 +62,22 @@ RSpec.describe 'Article endpoints', type: :request do
 
         expect(response).to have_http_status(:found)
         expect(response).to redirect_to(article_url(Article.last, params: {locale: I18n.locale}))
+      end
+    end
+
+    context 'with invalid parameters' do
+      before do
+        post user_session_path, params: { user: { email: @user.email, password: 'password123' } }
+      end
+
+      let(:invalid_attributes) { { user: { title: 'Sample', body: 'Sample', visible: 'public' } } }
+
+      it 'does not create a new user' do
+        expect {
+          post '/articles', params: invalid_attributes
+        }.not_to change(User, :count)
+
+        expect(response).to have_http_status(:bad_request)
       end
     end
   end
