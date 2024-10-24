@@ -59,6 +59,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem 'simplecov', require: false, group: :test
+  gem "rails-controller-testing"
 end
 
 gem "faker", "~> 3.5"
